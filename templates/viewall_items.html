@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(red, rgb(145, 140, 140));
+            background-repeat: no-repeat;
+            background-size: 100% 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap */
+            justify-content: center;
+            gap: 20px; /* Space between cards */
+        }
+
+        .card {
+            width: calc((100% / 4) - 20px); /* 4 cards per row */
+            max-width: 300px; /* Optional max width */
+            flex: 1 1 calc(25% - 20px); /* Ensure cards adjust responsively */
+        }
+
+        .sec1 {
+            margin-top: 5%;
+            width: 100%;
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover; /* Ensure images fit nicely */
+        }
+
+        .button {
+            margin-top: 10%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="sec1">
+        <div class="container">
+            {% for i in stored_items %}
+            <div class="card">
+                <img src="/static/{{i[2]}}" class="card-img-top" alt="{{i[1]}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{i[1]}}</h5>
+                    <h6 class="card-id">{{i[0]}}</h6>
+                    <div class="button">
+                        <a href="{{url_for('viewitem',item_id=i[0])}}"><button class="btn btn-warning">View</button></a>
+                        <a href="{{url_for('updateitem',item_id=i[0])}}"><button class="btn btn-success">Update</button></a>
+                        <a href="{{url_for('deleteitem',item_id=i[0])}}"><button class="btn btn-danger">Delete</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
